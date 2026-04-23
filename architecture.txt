@@ -1,0 +1,36 @@
+
+Technical Architecture Document: FormatShift Web Application
+This document outlines the technical architecture, technology stack, and engineering guidelines for the FormatShift web application, reflecting the enterprise fintech design requirements and hybrid processing strategy.
+
+1. System Architecture Overview
+FormatShift utilizes a decoupled, hybrid architecture. The application is split between a high-performance React client for real-time text manipulation and a Python backend for computationally heavy formatting tasks. This ensures rapid feedback for simple tasks while maintaining robust capabilities for complex data parsing.
+
+2. Technology Stack
+
+3. Frontend Architecture
+The frontend is designed for zero-latency interactions for essential formatting tasks.
+3.1 Client-Side Processing
+Tasks such as string casing (Uppercase, Lowercase), JSON prettifying, Markdown-to-HTML rendering, and Regex-based extraction (e.g., extracting emails) are executed purely in the browser. This ensures zero server costs and maximum data privacy for sensitive clipboard contents.
+3.2 Component Structure
+Layout Components: AppShell, SidebarNavigation, Header (containing user settings).
+Feature Components: FormattingWorkspace, DataInputArea, DataOutputArea, FormatToolbar.
+UI Primitives: Button, Card, Dialog, Toast (utilized from the Shadcn/UI library).
+
+4. Backend API Design
+The FastAPI backend exposes RESTful endpoints exclusively for operations that exceed standard browser capabilities or require specific native libraries.
+4.1 Core Endpoints
+POST /api/v1/format/csv-to-json
+Content-Type: multipart/form-data
+Description: Converts uploaded CSV datasets into structured JSON arrays.
+Response: { "status": "success", "data": [...] }
+
+POST /api/v1/format/clean-document
+Content-Type: multipart/form-data
+Description: Strips hidden formatting metadata from DOCX files.
+Response: { "status": "success", "download_url": "..." }
+  
+
+5. Deployment Strategy
+Frontend Hosting: Vercel. Chosen for its native Next.js optimization, edge caching capabilities, and seamless GitHub integration.
+Backend Hosting: Railway or Render. Enables straightforward Docker-based deployment of the Python environment and its system-level dependencies.
+CI/CD Pipeline: GitHub Actions will be configured to run TypeScript type-checking, ESLint, and Python Pytest suites automatically on every pull request.

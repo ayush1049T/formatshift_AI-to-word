@@ -1,0 +1,31 @@
+# FormatShift - Root .gitignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temp / scratch
+extract.py
+design.txt
+temp.zip
+temp_docx/
+
+# ─── Frontend (Next.js) ───────────────────────────────────────
+formatshift/node_modules/
+formatshift/.next/
+formatshift/out/
+formatshift/.env*
+formatshift/lint_errors.txt
+
+# ─── Backend (Python / FastAPI) ──────────────────────────────
+backend/__pycache__/
+backend/.pytest_cache/
+backend/*.pyc
+backend/venv/
+backend/.env*
